@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Text, View, TextInput, StyleSheet } from "react-native";
+import { Pressable, Text, View, TextInput, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -65,7 +65,7 @@ function ScheduleForm() {
       <Picker
         selectedValue={schedule.day}
         onValueChange={(itemValue) => handleChange("day", itemValue)}
-        style={styles.selectors}
+        style={styles.inputs}
       >
         <Picker.Item label="Select Day" value="" />
         <Picker.Item label="Monday" value="Monday" />
@@ -104,7 +104,11 @@ function ScheduleForm() {
         onChangeText={(text) => handleChange("room", text)}
         style={styles.inputs}
       />
-      <Button title="Create" onPress={handleSubmit} />
+      <View style={styles.buttonContainer}>
+        <Pressable style={styles.button} onPress={handleSubmit}>
+          <Text>Create</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -126,6 +130,16 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     borderColor: "black",
+  },
+  buttonContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
+  button: {
+    borderColor: "black",
+    borderWidth: 2,
+    padding: 16,
+    borderRadius: 5,
   },
 });
 

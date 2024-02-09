@@ -10,7 +10,10 @@ const Stack = createStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="/">
+      <Stack.Navigator
+        initialRouteName="/"
+        screenOptions={{ headerShown: false }}
+      >
         <Stack.Screen name="/" component={Principal} />
         <Stack.Screen name="SubjectForm" component={SubjectForm} />
         <Stack.Screen name="ScheduleForm" component={ScheduleForm} />
