@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function Subject({ subject, onDelete }) {
@@ -13,9 +13,9 @@ function Subject({ subject, onDelete }) {
         </Text>
         <Text>Location: {subject.room}</Text>
       </View>
-      <Button title="" onPress={onDelete}>
+      <Pressable style={styles.button} onPress={onDelete}>
         <MaterialCommunityIcons name="delete" size={30} color="black" />
-      </Button>
+      </Pressable>
     </View>
   );
 }
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderColor: "gray",
     borderWidth: 1,
+    width: "80%",
   },
   subjectContainer: {
     flexDirection: "column",
@@ -34,6 +35,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 10,
   },
 });
 

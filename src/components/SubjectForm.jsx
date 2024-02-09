@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, Button, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function SubjectForm() {
   const navigation = useNavigation();
@@ -12,16 +13,31 @@ function SubjectForm() {
   };
 
   useEffect(() => {
-    const response = JSON.parse(localStorage.getItem("subjects"));
-    if (response) {
-      setSubjects(response);
-    }
+    const getData = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem("@subjects");
+        return jsonValue != null ? JSON.parse(jsonValue) : null;
+      } catch (e) {
+        // Error reading value
+      }
+    };
+
+    getData().then((response) => {
+      if (response) {
+        setSubjects(response);
+      }
+    });
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSubjects([...subjects, subject]);
-    localStorage.setItem("subjects", JSON.stringify([...subjects, subject]));
-    navigation.navigate("Home");
+    try {
+      const jsonValue = JSON.stringify([...subjects, subject]);
+      await AsyncStorage.setItem("@subjects", jsonValue);
+    } catch (e) {
+      // Saving error
+    }
+    navigation.navigate("/");
   };
 
   return (
@@ -32,7 +48,11 @@ function SubjectForm() {
         placeholder="Algorithms"
         onChangeText={handleSubjectChange}
       />
-      <Button title="Create Subject" onPress={handleSubmit} />
+      <View style={styles.buttonContainer}>
+        <Pressable style={styles.button} onPress={handleSubmit}>
+          <Text>Create Subject</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -41,20 +61,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    padding: 16,
+    padding: 32,
+    alignItems: "center",
   },
   title: {
-    fontSize: 24,
+    fontSize: 45,
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 24,
   },
   input: {
     height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
+    borderColor: "black",
+    borderWidth: 2,
     marginBottom: 16,
     paddingLeft: 8,
+    width: "100%",
+  },
+  buttonContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
+  button: {
+    borderColor: "black",
+    borderWidth: 2,
+    padding: 16,
+    borderRadius: 5,
   },
 });
 

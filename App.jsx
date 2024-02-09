@@ -10,8 +10,8 @@ const Stack = createStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Principal">
-        <Stack.Screen name="Principal" component={Principal} />
+      <Stack.Navigator initialRouteName="/">
+        <Stack.Screen name="/" component={Principal} />
         <Stack.Screen name="SubjectForm" component={SubjectForm} />
         <Stack.Screen name="ScheduleForm" component={ScheduleForm} />
       </Stack.Navigator>

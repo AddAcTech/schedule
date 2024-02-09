@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { Button, Text, View, TextInput, StyleSheet } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
-import {
-  View,
-  Text,
-  Button,
-  TextInput,
-  Picker,
-  StyleSheet,
-} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function ScheduleForm() {
-  const navigation = useNavigation();
   const [subjects, setSubjects] = useState([]);
   const [prevSchedule, setPrevSchedule] = useState([]);
+  const navigation = useNavigation();
   const [schedule, setSchedule] = useState({
     day: "",
     subject: "",
@@ -23,66 +18,114 @@ function ScheduleForm() {
   });
 
   useEffect(() => {
-    const response = JSON.parse(localStorage.getItem("subjects"));
-    const responseSchedule = JSON.parse(localStorage.getItem("schedule"));
-    if (response) {
-      setSubjects(response);
-    }
-    if (responseSchedule) {
-      setPrevSchedule(responseSchedule);
-    }
+    const getData = async () => {
+      try {
+        const subjectsJson = await AsyncStorage.getItem("@subjects");
+        const scheduleJson = await AsyncStorage.getItem("@schedule");
+        return {
+          subjects: subjectsJson != null ? JSON.parse(subjectsJson) : null,
+          schedule: scheduleJson != null ? JSON.parse(scheduleJson) : null,
+        };
+      } catch (e) {
+        // Error reading value
+      }
+    };
+
+    getData().then((response) => {
+      if (response.subjects) {
+        setSubjects(response.subjects);
+      }
+      if (response.schedule) {
+        setPrevSchedule(response.schedule);
+      }
+    });
   }, []);
 
   const handleChange = (name, value) => {
+    console.log(name, value);
     setSchedule({ ...schedule, [name]: value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setPrevSchedule([...prevSchedule, schedule]);
-    localStorage.setItem(
-      "schedule",
-      JSON.stringify([...prevSchedule, schedule])
-    );
-    navigation.navigate("Home");
+    try {
+      await AsyncStorage.setItem(
+        "@schedule",
+        JSON.stringify([...prevSchedule, schedule])
+      );
+    } catch (e) {
+      // Saving error
+    }
+    navigation.navigate("/");
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>New Schedule</Text>
-      <View style={styles.inputGroup}>
-        <Text>Day</Text>
-        <Picker
-          selectedValue={schedule.day}
-          onValueChange={(itemValue) => handleChange("day", itemValue)}
-        >
-          <Picker.Item label="Select Day" value="" />
-          <Picker.Item label="Monday" value="Monday" />
-          <Picker.Item label="Tuesday" value="Tuesday" />
-          <Picker.Item label="Wednesday" value="Wednesday" />
-          <Picker.Item label="Thursday" value="Thursday" />
-          <Picker.Item label="Friday" value="Friday" />
-        </Picker>
-      </View>
-      {/* Repeat for other fields */}
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text style={{ fontSize: 45, fontWeight: "bold" }}>New Schedule</Text>
+      <Picker
+        selectedValue={schedule.day}
+        onValueChange={(itemValue) => handleChange("day", itemValue)}
+        style={styles.selectors}
+      >
+        <Picker.Item label="Select Day" value="" />
+        <Picker.Item label="Monday" value="Monday" />
+        <Picker.Item label="Tuesday" value="Tuesday" />
+        <Picker.Item label="Wednesday" value="Wednesday" />
+        <Picker.Item label="Thursday" value="Thursday" />
+        <Picker.Item label="Friday" value="Friday" />
+      </Picker>
+      <Picker
+        selectedValue={schedule.subject}
+        onValueChange={(itemValue) => handleChange("subject", itemValue)}
+        style={styles.inputs}
+      >
+        <Picker.Item label="Select Subject" value="" />
+        {subjects.map((subject, index) => (
+          <Picker.Item key={index} label={subject} value={subject} />
+        ))}
+      </Picker>
+      <TextInput
+        placeholder="Teacher"
+        onChangeText={(text) => handleChange("teacher", text)}
+        style={styles.inputs}
+      />
+      <TextInput
+        placeholder="Starts"
+        onChangeText={(text) => handleChange("start", text)}
+        style={styles.inputs}
+      />
+      <TextInput
+        placeholder="Finish"
+        onChangeText={(text) => handleChange("finish", text)}
+        style={styles.inputs}
+      />
+      <TextInput
+        placeholder="Room"
+        onChangeText={(text) => handleChange("room", text)}
+        style={styles.inputs}
+      />
       <Button title="Create" onPress={handleSubmit} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 16,
+  inputs: {
+    height: 40,
+    width: 200,
+    margin: 12,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    borderColor: "black",
+    borderWidth: 2,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 24,
-  },
-  inputGroup: {
-    marginBottom: 16,
+  selectors: {
+    height: 50,
+    width: 200,
+    margin: 12,
+    borderWidth: 1,
+    borderColor: "black",
   },
 });
 

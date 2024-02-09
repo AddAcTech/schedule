@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Subject from "./Subject";
 import Header from "./Header";
 import EmptySchedule from "./EmptySchedule";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 function Principal() {
   const [subjects, setSubjects] = useState([]);
   const [today, setToday] = useState([]);
   const [fecha, setFecha] = useState(new Date());
   const [dia, setDia] = useState("");
+  const navigation = useNavigation();
+
   const [dias, setDias] = useState([
     "Monday",
     "Tuesday",
@@ -23,10 +27,20 @@ function Principal() {
   }, [fecha]);
 
   useEffect(() => {
-    const response = JSON.parse(localStorage.getItem("schedule"));
-    if (response) {
-      setSubjects(response);
-    }
+    const getData = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem("@schedule");
+        return jsonValue != null ? JSON.parse(jsonValue) : null;
+      } catch (e) {
+        // Error reading value
+      }
+    };
+
+    getData().then((response) => {
+      if (response) {
+        setSubjects(response);
+      }
+    });
   }, []);
 
   // Filtramos los subjects por el día de hoy
@@ -39,7 +53,15 @@ function Principal() {
       (subject) => subject !== subjectToDelete
     );
     setSubjects(updatedSubjects);
-    localStorage.setItem("schedule", JSON.stringify(updatedSubjects));
+    const storeData = async (value) => {
+      try {
+        const jsonValue = JSON.stringify(value);
+        await AsyncStorage.setItem("@schedule", jsonValue);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    storeData(updatedSubjects);
   };
 
   if (today.length === 0 || !today) {
@@ -49,23 +71,17 @@ function Principal() {
   return (
     <View style={styles.container}>
       <Header />
-      <View style={styles.scheduleContainer}>
-        <View style={styles.titleContainer}>
-          <MaterialCommunityIcons
-            name="calendar-clock"
-            size={40}
-            color="black"
-          />
-          <Text style={styles.title}>{dia} schedule</Text>
-        </View>
-        {today.map((subject, index) => (
-          <Subject
-            key={index}
-            subject={subject}
-            onDelete={() => handleDelete(subject)}
-          />
-        ))}
+      <View style={styles.titleContainer}>
+        <MaterialCommunityIcons name="calendar-clock" size={50} color="black" />
+        <Text style={styles.title}>{dia} schedule</Text>
       </View>
+      {today.map((subject, index) => (
+        <Subject
+          key={index}
+          subject={subject}
+          onDelete={() => handleDelete(subject)}
+        />
+      ))}
     </View>
   );
 }
@@ -73,6 +89,7 @@ function Principal() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
   },
   scheduleContainer: {
     flex: 1,
@@ -83,10 +100,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 20,
+    margin: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 45,
     fontWeight: "bold",
     marginLeft: 10,
   },
