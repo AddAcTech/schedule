@@ -22,12 +22,13 @@ function Subject({ subject, onDelete }) {
 
 const styles = StyleSheet.create({
   container: {
+    width: "80%",
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 16,
     borderColor: "gray",
     borderWidth: 1,
-    width: "80%",
+    borderRadius: 10,
   },
   subjectContainer: {
     flexDirection: "column",
