@@ -26,22 +26,24 @@ function Principal() {
     setDia(dias[fecha.getDay() - 1]);
   }, [fecha]);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem("@schedule");
-        return jsonValue != null ? JSON.parse(jsonValue) : null;
-      } catch (e) {
-        // Error reading value
-      }
-    };
+  useFocusEffect(
+    React.useCallback(() => {
+      const getData = async () => {
+        try {
+          const jsonValue = await AsyncStorage.getItem("@schedule");
+          return jsonValue != null ? JSON.parse(jsonValue) : null;
+        } catch (e) {
+          // Error reading value
+        }
+      };
 
-    getData().then((response) => {
-      if (response) {
-        setSubjects(response);
-      }
-    });
-  }, []);
+      getData().then((response) => {
+        if (response) {
+          setSubjects(response);
+        }
+      });
+    }, [])
+  );
 
   // Filtramos los subjects por el día de hoy
   useEffect(() => {

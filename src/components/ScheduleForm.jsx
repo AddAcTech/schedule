@@ -39,7 +39,7 @@ function ScheduleForm() {
         setPrevSchedule(response.schedule);
       }
     });
-  }, []);
+  }, [subjects]);
 
   const handleChange = (name, value) => {
     console.log(name, value);
