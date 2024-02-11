@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Header from "./Header";
+import AllSubjects from "./AllSubjects";
 
 function SubjectForm() {
   const navigation = useNavigation();
   const [subject, setSubject] = useState("");
   const [subjects, setSubjects] = useState([]);
+  const [reloader, setReloader] = useState(0);
 
   const handleSubjectChange = (value) => {
     setSubject(value);
@@ -27,7 +30,7 @@ function SubjectForm() {
         setSubjects(response);
       }
     });
-  }, []);
+  }, [reloader]);
 
   const handleSubmit = async () => {
     setSubjects([...subjects, subject]);
@@ -37,30 +40,33 @@ function SubjectForm() {
     } catch (e) {
       // Saving error
     }
-    navigation.navigate("/");
+    setReloader(reloader + 1);
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>New Subject</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Algorithms"
-        onChangeText={handleSubjectChange}
-      />
-      <View style={styles.buttonContainer}>
-        <Pressable style={styles.button} onPress={handleSubmit}>
-          <Text>Create Subject</Text>
-        </Pressable>
+    <>
+      <Header />
+      <View style={styles.container}>
+        <Text style={styles.title}>New Subject</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Algorithms"
+          onChangeText={handleSubjectChange}
+        />
+        <View style={styles.buttonContainer}>
+          <Pressable style={styles.button} onPress={handleSubmit}>
+            <Text>Create Subject</Text>
+          </Pressable>
+        </View>
+        <AllSubjects />
       </View>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     padding: 32,
     alignItems: "center",
   },
@@ -77,6 +83,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingLeft: 8,
     width: "100%",
+    borderRadius: 5,
   },
   buttonContainer: {
     width: "100%",
@@ -85,7 +92,8 @@ const styles = StyleSheet.create({
   button: {
     borderColor: "black",
     borderWidth: 2,
-    padding: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     borderRadius: 5,
   },
 });

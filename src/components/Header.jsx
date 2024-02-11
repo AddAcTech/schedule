@@ -9,18 +9,28 @@ function Header() {
   return (
     <View style={styles.container}>
       <Pressable
+        onPress={() => navigation.navigate("/")}
+        style={styles.buttonContainer}
+      >
+        <MaterialCommunityIcons name="home" size={40} color="black" />
+      </Pressable>
+      <Pressable
         onPress={() => navigation.navigate("SubjectForm")}
         style={styles.buttonContainer}
       >
-        <Text style={styles.text}>Create Subject</Text>
-        <MaterialCommunityIcons name="plus-circle" size={40} color="white" />
+        <MaterialCommunityIcons name="plus-circle" size={40} color="black" />
       </Pressable>
       <Pressable
         onPress={() => navigation.navigate("ScheduleForm")}
         style={styles.buttonContainer}
       >
-        <Text style={styles.text}>Create Schedule</Text>
-        <MaterialCommunityIcons name="pencil" size={40} color="white" />
+        <MaterialCommunityIcons name="pencil" size={40} color="black" />
+      </Pressable>
+      <Pressable
+        onPress={() => navigation.navigate("AllSubjects")}
+        style={styles.buttonContainer}
+      >
+        <MaterialCommunityIcons name="school-outline" size={40} color="black" />
       </Pressable>
     </View>
   );
@@ -29,15 +39,12 @@ function Header() {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "",
     padding: 16,
-    backgroundColor: "#2d3748",
   },
   buttonContainer: {
-    flex: 1,
+    marginHorizontal: 4,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
   },
   text: {
     fontSize: 20,

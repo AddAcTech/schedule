@@ -17,10 +17,10 @@ function App() {
           initialRouteName="/"
           screenOptions={{ headerShown: false }}
         >
-          <Stack.Screen name="asdads" component={Principal} />
+          <Stack.Screen name="/" component={Principal} />
           <Stack.Screen name="SubjectForm" component={SubjectForm} />
           <Stack.Screen name="ScheduleForm" component={ScheduleForm} />
-          <Stack.Screen name="/" component={AllSubjects} />
+          <Stack.Screen name="AllSubjects" component={AllSubjects} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -30,22 +29,18 @@ export default function AllSubjects() {
   };
 
   return (
-    <View>
-      <Header />
-      <Text style={styles.titulo}>Subjects</Text>
-      <View style={styles.container}>
-        {subjects.map((subject, index) => (
-          <View key={index} style={styles.card}>
-            <Text style={styles.subject}>{subject}</Text>
-            <MaterialCommunityIcons
-              name="delete"
-              size={30}
-              color="red"
-              onPress={() => handleDelete(subject)}
-            />
-          </View>
-        ))}
-      </View>
+    <View style={styles.container}>
+      {subjects.map((subject, index) => (
+        <View key={index} style={styles.card}>
+          <Text style={styles.subject}>{subject}</Text>
+          <MaterialCommunityIcons
+            name="delete"
+            size={30}
+            color="black"
+            onPress={() => handleDelete(subject)}
+          />
+        </View>
+      ))}
     </View>
   );
 }
@@ -54,6 +49,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 10,
     gap: 5,
+    width: "auto",
   },
   titulo: {
     fontSize: 30,
@@ -72,6 +68,6 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderWidth: 2,
-    borderRadius: 5,
+    borderRadius: 10,
   },
 });

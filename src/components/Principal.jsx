@@ -20,6 +20,8 @@ function Principal() {
     "Wednesday",
     "Thursday",
     "Friday",
+    "Saturday",
+    "Sunday",
   ]);
 
   useEffect(() => {
@@ -74,16 +76,18 @@ function Principal() {
     <View style={styles.container}>
       <Header />
       <View style={styles.titleContainer}>
-        <MaterialCommunityIcons name="calendar-clock" size={50} color="black" />
+        <MaterialCommunityIcons name="calendar-clock" size={30} color="black" />
         <Text style={styles.title}>{dia} schedule</Text>
       </View>
-      {today.map((subject, index) => (
-        <Subject
-          key={index}
-          subject={subject}
-          onDelete={() => handleDelete(subject)}
-        />
-      ))}
+      <View style={styles.subjects}>
+        {today.map((subject, index) => (
+          <Subject
+            key={index}
+            subject={subject}
+            onDelete={() => handleDelete(subject)}
+          />
+        ))}
+      </View>
     </View>
   );
 }
@@ -91,6 +95,8 @@ function Principal() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  subjects: {
     alignItems: "center",
   },
   scheduleContainer: {
@@ -105,7 +111,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   title: {
-    fontSize: 45,
+    fontSize: 30,
     fontWeight: "bold",
     marginLeft: 10,
   },
