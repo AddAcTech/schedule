@@ -73,6 +73,7 @@ function ScheduleForm() {
         <Picker.Item label="Wednesday" value="Wednesday" />
         <Picker.Item label="Thursday" value="Thursday" />
         <Picker.Item label="Friday" value="Friday" />
+        <Picker.Item label="Saturday" value="Friday" />
       </Picker>
       <Picker
         selectedValue={schedule.subject}
