@@ -9,7 +9,6 @@ function SubjectForm() {
   const navigation = useNavigation();
   const [subject, setSubject] = useState("");
   const [subjects, setSubjects] = useState([]);
-  const [reloader, setReloader] = useState(0);
 
   const handleSubjectChange = (value) => {
     setSubject(value);
@@ -30,7 +29,7 @@ function SubjectForm() {
         setSubjects(response);
       }
     });
-  }, [reloader]);
+  }, []);
 
   const handleSubmit = async () => {
     setSubjects([...subjects, subject]);
@@ -40,7 +39,7 @@ function SubjectForm() {
     } catch (e) {
       // Saving error
     }
-    setReloader(reloader + 1);
+    navigation.navigate("/");
   };
 
   return (
