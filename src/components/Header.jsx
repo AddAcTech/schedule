@@ -26,12 +26,6 @@ function Header() {
       >
         <MaterialCommunityIcons name="pencil" size={40} color="black" />
       </Pressable>
-      <Pressable
-        onPress={() => navigation.navigate("AllSubjects")}
-        style={styles.buttonContainer}
-      >
-        <MaterialCommunityIcons name="school-outline" size={40} color="black" />
-      </Pressable>
     </View>
   );
 }
