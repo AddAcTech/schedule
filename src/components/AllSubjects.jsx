@@ -48,9 +48,10 @@ export default function AllSubjects() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
+    marginTop: 15,
+    paddingHorizontal: 15,
     gap: 5,
-    width: "auto",
+    width: "100%",
   },
   titulo: {
     fontSize: 30,
@@ -65,10 +66,9 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal: 10,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    padding: 15,
     borderWidth: 2,
+    marginBottom: 15,
     borderRadius: 10,
   },
 });

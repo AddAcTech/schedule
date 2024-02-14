@@ -63,89 +63,120 @@ function ScheduleForm() {
   return (
     <>
       <Header />
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View
+        style={{
+          alignItems: "center",
+          padding: 15,
+        }}
+      >
         <Text style={{ fontSize: 45, fontWeight: "bold" }}>New Schedule</Text>
-        <Picker
-          selectedValue={schedule.day}
-          onValueChange={(itemValue) => handleChange("day", itemValue)}
-          style={styles.inputs}
-        >
-          <Picker.Item label="Select Day" value="" />
-          <Picker.Item label="Monday" value="Monday" />
-          <Picker.Item label="Tuesday" value="Tuesday" />
-          <Picker.Item label="Wednesday" value="Wednesday" />
-          <Picker.Item label="Thursday" value="Thursday" />
-          <Picker.Item label="Friday" value="Friday" />
-          <Picker.Item label="Saturday" value="Saturday" />
-          <Picker.Item label="Sunday" value="Sunday" />
-        </Picker>
-        <Picker
-          selectedValue={schedule.subject}
-          onValueChange={(itemValue) => handleChange("subject", itemValue)}
-          style={styles.inputs}
-        >
-          <Picker.Item label="Select Subject" value="" />
-          {subjects.map((subject, index) => (
-            <Picker.Item key={index} label={subject} value={subject} />
-          ))}
-        </Picker>
+        <View style={styles.container}>
+          <View style={styles.selectorContainer}>
+            <Picker
+              selectedValue={schedule.day}
+              onValueChange={(itemValue) => handleChange("day", itemValue)}
+              style={styles.selectors}
+            >
+              <Picker.Item label="Select Day" value="" />
+              <Picker.Item label="Monday" value="Monday" />
+              <Picker.Item label="Tuesday" value="Tuesday" />
+              <Picker.Item label="Wednesday" value="Wednesday" />
+              <Picker.Item label="Thursday" value="Thursday" />
+              <Picker.Item label="Friday" value="Friday" />
+              <Picker.Item label="Saturday" value="Saturday" />
+              <Picker.Item label="Sunday" value="Sunday" />
+            </Picker>
+          </View>
+          <View style={styles.selectorContainer}>
+            <Picker
+              selectedValue={schedule.subject}
+              onValueChange={(itemValue) => handleChange("subject", itemValue)}
+              style={styles.selectors}
+            >
+              <Picker.Item label="Select Subject" value="" />
+              {subjects.map((subject, index) => (
+                <Picker.Item key={index} label={subject} value={subject} />
+              ))}
+            </Picker>
+          </View>
+        </View>
         <TextInput
           placeholder="Teacher"
           onChangeText={(text) => handleChange("teacher", text)}
           style={styles.inputs}
         />
-        <TextInput
-          placeholder="Starts"
-          onChangeText={(text) => handleChange("start", text)}
-          style={styles.inputs}
-        />
-        <TextInput
-          placeholder="Finish"
-          onChangeText={(text) => handleChange("finish", text)}
-          style={styles.inputs}
-        />
+        <View style={styles.container}>
+          <TextInput
+            placeholder="Starts"
+            onChangeText={(text) => handleChange("start", text)}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Finish"
+            onChangeText={(text) => handleChange("finish", text)}
+            style={styles.input}
+          />
+        </View>
         <TextInput
           placeholder="Room"
           onChangeText={(text) => handleChange("room", text)}
           style={styles.inputs}
         />
-        <View style={styles.buttonContainer}>
-          <Pressable style={styles.button} onPress={handleSubmit}>
-            <Text>Create</Text>
-          </Pressable>
-        </View>
       </View>
+      <Pressable style={styles.button} onPress={handleSubmit}>
+        <Text>Create</Text>
+      </Pressable>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   inputs: {
-    height: 40,
-    width: 200,
-    margin: 12,
+    width: "100%",
+    marginTop: 15,
     borderWidth: 1,
     borderRadius: 5,
-    paddingHorizontal: 10,
+    padding: 15,
     borderColor: "black",
     borderWidth: 2,
   },
-  selectors: {
-    height: 50,
-    width: 200,
-    margin: 12,
+  input: {
+    flex: 1,
+    marginTop: 15,
     borderWidth: 1,
+    borderRadius: 5,
+    padding: 15,
     borderColor: "black",
+    borderWidth: 2,
   },
-  buttonContainer: {
+  container: {
+    marginTop: 20,
     width: "100%",
-    alignItems: "center",
+    flexDirection: "row",
+    gap: 15,
+    justifyContent: "center",
+  },
+  selectorContainer: {
+    borderColor: "black",
+    borderWidth: 2,
+    borderRadius: 5,
+    flex: 1,
+  },
+  selectors: {
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 15,
+    borderColor: "black",
+    borderWidth: 2,
   },
   button: {
     borderColor: "black",
     borderWidth: 2,
-    padding: 16,
+    padding: 15,
     borderRadius: 5,
+    width: "50%",
+    marginLeft: 15,
+    fontWeight: "bold",
   },
 });
 

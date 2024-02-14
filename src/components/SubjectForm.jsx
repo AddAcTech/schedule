@@ -45,55 +45,51 @@ function SubjectForm() {
   return (
     <>
       <Header />
+      <Text style={styles.title}>New Subject</Text>
       <View style={styles.container}>
-        <Text style={styles.title}>New Subject</Text>
         <TextInput
           style={styles.input}
           placeholder="Algorithms"
           onChangeText={handleSubjectChange}
         />
-        <View style={styles.buttonContainer}>
-          <Pressable style={styles.button} onPress={handleSubmit}>
-            <Text>Create Subject</Text>
-          </Pressable>
-        </View>
-        <AllSubjects />
+        <Pressable style={styles.button} onPress={handleSubmit}>
+          <Text>Add Subject</Text>
+        </Pressable>
       </View>
+      <AllSubjects />
     </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 32,
-    alignItems: "center",
+    marginTop: 10,
+    paddingHorizontal: 15,
+    justifyContent: "center",
+    flexDirection: "row",
+    width: "100%",
+    gap: 15,
   },
   title: {
     fontSize: 45,
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 24,
   },
   input: {
-    height: 40,
+    flex: 1,
     borderColor: "black",
     borderWidth: 2,
-    marginBottom: 16,
-    paddingLeft: 8,
-    width: "100%",
-    borderRadius: 5,
+    paddingLeft: 16,
+    borderRadius: 10,
+    fontSize: 20,
   },
-  buttonContainer: {
-    width: "100%",
-    alignItems: "center",
-  },
+
   button: {
     borderColor: "black",
     borderWidth: 2,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 5,
+    padding: 16,
+    borderRadius: 10,
+    fontWeight: "bold",
   },
 });
 
