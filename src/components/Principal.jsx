@@ -6,6 +6,7 @@ import EmptySchedule from "./EmptySchedule";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { Picker } from "@react-native-picker/picker";
 
 function Principal() {
   const [subjects, setSubjects] = useState([]);
@@ -68,6 +69,10 @@ function Principal() {
     storeData(updatedSubjects);
   };
 
+  const handleChange = (e) => {
+    setDia(e.target.value);
+  };
+
   if (today.length === 0 || !today) {
     return <EmptySchedule />;
   }
@@ -78,6 +83,16 @@ function Principal() {
       <View style={styles.titleContainer}>
         <MaterialCommunityIcons name="calendar-clock" size={30} color="black" />
         <Text style={styles.title}>{dia} schedule</Text>
+        <Picker onValueChange={handleChange} style={styles.inputs}>
+          <Picker.Item label="Select Day" value="" />
+          <Picker.Item label="Monday" value="Monday" />
+          <Picker.Item label="Tuesday" value="Tuesday" />
+          <Picker.Item label="Wednesday" value="Wednesday" />
+          <Picker.Item label="Thursday" value="Thursday" />
+          <Picker.Item label="Friday" value="Friday" />
+          <Picker.Item label="Saturday" value="Saturday" />
+          <Picker.Item label="Sunday" value="Sunday" />
+        </Picker>
       </View>
       <View style={styles.subjects}>
         {today.map((subject, index) => (

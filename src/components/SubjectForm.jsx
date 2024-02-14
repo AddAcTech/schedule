@@ -20,7 +20,7 @@ function SubjectForm() {
         const jsonValue = await AsyncStorage.getItem("@subjects");
         return jsonValue != null ? JSON.parse(jsonValue) : null;
       } catch (e) {
-        // Error reading value
+        setSubjects(["No se cargaron los datos"]);
       }
     };
 

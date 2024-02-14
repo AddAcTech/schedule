@@ -64,21 +64,6 @@ function ScheduleForm() {
     <>
       <Header />
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text style={{ fontSize: 45, fontWeight: "bold" }}>New Schedule</Text>
-        <Picker
-          selectedValue={schedule.day}
-          onValueChange={(itemValue) => handleChange("day", itemValue)}
-          style={styles.inputs}
-        >
-          <Picker.Item label="Select Day" value="" />
-          <Picker.Item label="Monday" value="Monday" />
-          <Picker.Item label="Tuesday" value="Tuesday" />
-          <Picker.Item label="Wednesday" value="Wednesday" />
-          <Picker.Item label="Thursday" value="Thursday" />
-          <Picker.Item label="Friday" value="Friday" />
-          <Picker.Item label="Saturday" value="Saturday" />
-          <Picker.Item label="Sunday" value="Sunday" />
-        </Picker>
         <Picker
           selectedValue={schedule.subject}
           onValueChange={(itemValue) => handleChange("subject", itemValue)}

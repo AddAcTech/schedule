@@ -30,17 +30,18 @@ export default function AllSubjects() {
 
   return (
     <View style={styles.container}>
-      {subjects.map((subject, index) => (
-        <View key={index} style={styles.card}>
-          <Text style={styles.subject}>{subject}</Text>
-          <MaterialCommunityIcons
-            name="delete"
-            size={30}
-            color="black"
-            onPress={() => handleDelete(subject)}
-          />
-        </View>
-      ))}
+      {subjects &&
+        subjects.map((subject, index) => (
+          <View key={index} style={styles.card}>
+            <Text style={styles.subject}>{subject}</Text>
+            <MaterialCommunityIcons
+              name="delete"
+              size={30}
+              color="black"
+              onPress={() => handleDelete(subject)}
+            />
+          </View>
+        ))}
     </View>
   );
 }
