@@ -3,9 +3,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Subject from "./Subject";
 import Header from "./Header";
 import EmptySchedule from "./EmptySchedule";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { Picker } from "@react-native-picker/picker";
 
 function Principal() {
   const [subjects, setSubjects] = useState([]);
@@ -50,6 +51,7 @@ function Principal() {
   // Filtramos los subjects por el día de hoy
   useEffect(() => {
     setToday(subjects.filter((subject) => subject.day === dia));
+    console.log(subjects.filter((subject) => subject.day === dia));
   }, [subjects, dia]);
 
   const handleDelete = (subjectToDelete) => {
@@ -68,13 +70,50 @@ function Principal() {
     storeData(updatedSubjects);
   };
 
+  const handleChange = (newDay) => {
+    setDia(newDay);
+  };
+
   if (today.length === 0 || !today) {
-    return <EmptySchedule />;
+    return (
+      <>
+        <EmptySchedule />
+        <Picker
+          onValueChange={(itemValue) => handleChange(itemValue)}
+          style={styles.inputs}
+        >
+          <Picker.Item label="Select Day" value="" />
+          <Picker.Item label="Monday" value="Monday" />
+          <Picker.Item label="Tuesday" value="Tuesday" />
+          <Picker.Item label="Wednesday" value="Wednesday" />
+          <Picker.Item label="Thursday" value="Thursday" />
+          <Picker.Item label="Friday" value="Friday" />
+          <Picker.Item label="Saturday" value="Saturday" />
+          <Picker.Item label="Sunday" value="Sunday" />
+        </Picker>
+        <Pressable onPress={() => setDia("Monday")}>
+          <Text>Lunes</Text>
+        </Pressable>
+      </>
+    );
   }
 
   return (
     <View style={styles.container}>
       <Header />
+      <Picker
+        onValueChange={(itemValue) => handleChange(itemValue)}
+        style={styles.inputs}
+      >
+        <Picker.Item label="Select Day" value="" />
+        <Picker.Item label="Monday" value="Monday" />
+        <Picker.Item label="Tuesday" value="Tuesday" />
+        <Picker.Item label="Wednesday" value="Wednesday" />
+        <Picker.Item label="Thursday" value="Thursday" />
+        <Picker.Item label="Friday" value="Friday" />
+        <Picker.Item label="Saturday" value="Saturday" />
+        <Picker.Item label="Sunday" value="Sunday" />
+      </Picker>
       <View style={styles.titleContainer}>
         <MaterialCommunityIcons name="calendar-clock" size={30} color="black" />
         <Text style={styles.title}>{dia} schedule</Text>
@@ -88,6 +127,9 @@ function Principal() {
           />
         ))}
       </View>
+      <Pressable onPress={() => setDia("Monday")}>
+        <Text>LUNESS</Text>
+      </Pressable>
     </View>
   );
 }
