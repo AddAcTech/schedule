@@ -68,7 +68,7 @@ function Professors() {
           />
         </View>
         <Pressable style={styles.button} onPress={handleSubmit}>
-          <Text>Add Teacher</Text>
+          <Text style={styles.buttonText}>Add Teacher</Text>
         </Pressable>
       </View>
       <AllTeachers />
@@ -105,11 +105,14 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    borderColor: "black",
-    borderWidth: 2,
+    backgroundColor: "black",
     justifyContent: "center",
     padding: 16,
     borderRadius: 10,
+    fontWeight: "bold",
+  },
+  buttonText: {
+    color: "white",
     fontWeight: "bold",
   },
 });

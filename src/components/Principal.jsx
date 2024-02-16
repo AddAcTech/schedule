@@ -112,7 +112,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   subjects: {
-    alignItems: "center",
+    width: "100%",
+    paddingHorizontal: 15,
+    gap: 15,
   },
   scheduleContainer: {
     flex: 1,
@@ -123,7 +125,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    margin: 20,
   },
   title: {
     fontSize: 30,

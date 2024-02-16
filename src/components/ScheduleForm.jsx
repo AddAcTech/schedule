@@ -110,6 +110,7 @@ function ScheduleForm() {
         </View>
         <View style={styles.inputs}>
           <Picker
+            selectedValue={schedule.teacher}
             onValueChange={(itemValue) => handleChange("teacher", itemValue)}
           >
             <Picker.Item label="Select Teacher" />
@@ -143,7 +144,7 @@ function ScheduleForm() {
         </View>
       </View>
       <Pressable style={styles.button} onPress={handleSubmit}>
-        <Text>Create</Text>
+        <Text style={styles.buttonText}>Create</Text>
       </Pressable>
     </>
   );
@@ -187,14 +188,16 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   button: {
-    borderColor: "black",
-    borderWidth: 2,
+    backgroundColor: "black",
     padding: 15,
     borderRadius: 5,
     width: "50%",
     alignSelf: "center",
     alignItems: "center",
-    marginLeft: 15,
+  },
+
+  buttonText: {
+    color: "white",
     fontWeight: "bold",
   },
 });

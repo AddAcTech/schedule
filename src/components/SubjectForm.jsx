@@ -53,7 +53,7 @@ function SubjectForm() {
           onChangeText={handleSubjectChange}
         />
         <Pressable style={styles.button} onPress={handleSubmit}>
-          <Text>Add Subject</Text>
+          <Text style={styles.buttonText}>Add Subject</Text>
         </Pressable>
       </View>
       <AllSubjects />
@@ -83,12 +83,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     fontSize: 20,
   },
-
   button: {
-    borderColor: "black",
+    backgroundColor: "black",
     borderWidth: 2,
-    padding: 16,
+    padding: 15,
     borderRadius: 10,
+  },
+  buttonText: {
+    color: "white",
     fontWeight: "bold",
   },
 });

@@ -22,8 +22,6 @@ function Subject({ subject, onDelete }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: "80%",
-    marginVertical: 5,
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 16,
