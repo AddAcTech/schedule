@@ -34,7 +34,7 @@ function Principal() {
       const getData = async () => {
         try {
           const jsonValue = await AsyncStorage.getItem("@schedule");
-          return jsonValue != null ? JSON.parse(jsonValue) : null;
+          return jsonValue != null ? JSON.parse(jsonValue) : [];
         } catch (e) {
           // Error reading value
         }

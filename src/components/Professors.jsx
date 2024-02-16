@@ -19,7 +19,7 @@ function Professors() {
     try {
       const getData = async () => {
         const local = await AsyncStorage.getItem("@teachers");
-        const teachersJson = local ? JSON.parse(local) : null;
+        const teachersJson = local ? JSON.parse(local) : [];
         setPrevTeachers(teachersJson);
       };
       getData();
@@ -27,18 +27,19 @@ function Professors() {
   }, []);
 
   const handleTeacherChange = (name, value) => {
+    console.log(name, value);
     setTeacher({ ...teacher, [name]: value });
   };
 
   const handleSubmit = async () => {
-    setPrevTeachers([...prevTeachers, teacher]);
+    //setPrevTeachers([...prevTeachers, teacher]);
+    console.log(prevTeachers);
     try {
       const jsonValue = JSON.stringify([...prevTeachers, teacher]);
+      console.log(jsonValue);
       await AsyncStorage.setItem("@teachers", jsonValue);
-    } catch (e) {
-      // Saving error
-    }
-    navigation.navigate("/");
+      navigation.navigate("/");
+    } catch (e) {}
   };
 
   return (
