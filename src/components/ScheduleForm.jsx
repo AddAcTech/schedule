@@ -6,9 +6,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "./Header";
 
 function ScheduleForm() {
-  const [subjects, setSubjects] = useState([]);
-  const [prevSchedule, setPrevSchedule] = useState([]);
   const navigation = useNavigation();
+  const [subjects, setSubjects] = useState([]);
+  const [teachers, setTeachers] = useState([]);
+  const [prevSchedule, setPrevSchedule] = useState([]);
   const [schedule, setSchedule] = useState({
     day: "",
     subject: "",
@@ -23,9 +24,12 @@ function ScheduleForm() {
       try {
         const subjectsJson = await AsyncStorage.getItem("@subjects");
         const scheduleJson = await AsyncStorage.getItem("@schedule");
+        const teachersJson = await AsyncStorage.getItem("@teachers");
+
         return {
           subjects: subjectsJson != null ? JSON.parse(subjectsJson) : null,
           schedule: scheduleJson != null ? JSON.parse(scheduleJson) : null,
+          teachers: teachersJson != null ? JSON.parse(teachersJson) : null,
         };
       } catch (e) {
         // Error reading value
@@ -39,11 +43,13 @@ function ScheduleForm() {
       if (response.schedule) {
         setPrevSchedule(response.schedule);
       }
+      if (response.teachers) {
+        setTeachers(response.teachers);
+      }
     });
   }, [subjects]);
 
   const handleChange = (name, value) => {
-    console.log(name, value);
     setSchedule({ ...schedule, [name]: value });
   };
 
@@ -69,7 +75,9 @@ function ScheduleForm() {
           padding: 15,
         }}
       >
-        <Text style={{ fontSize: 45, fontWeight: "bold" }}>New Schedule</Text>
+        <Text style={{ fontSize: 45, fontWeight: "bold", marginBottom: 20 }}>
+          New Schedule
+        </Text>
         <View style={styles.container}>
           <View style={styles.selectorContainer}>
             <Picker
@@ -93,18 +101,27 @@ function ScheduleForm() {
               onValueChange={(itemValue) => handleChange("subject", itemValue)}
               style={styles.selectors}
             >
-              <Picker.Item label="Select Subject" value="" />
+              <Picker.Item label="Select Subject" />
               {subjects.map((subject, index) => (
                 <Picker.Item key={index} label={subject} value={subject} />
               ))}
             </Picker>
           </View>
         </View>
-        <TextInput
-          placeholder="Teacher"
-          onChangeText={(text) => handleChange("teacher", text)}
-          style={styles.inputs}
-        />
+        <View style={styles.inputs}>
+          <Picker
+            onValueChange={(itemValue) => handleChange("teacher", itemValue)}
+          >
+            <Picker.Item label="Select Teacher" />
+            {teachers.map((teacher, index) => (
+              <Picker.Item
+                key={index}
+                label={teacher.name}
+                value={teacher.name}
+              />
+            ))}
+          </Picker>
+        </View>
         <View style={styles.container}>
           <TextInput
             placeholder="Starts"
@@ -117,11 +134,13 @@ function ScheduleForm() {
             style={styles.input}
           />
         </View>
-        <TextInput
-          placeholder="Room"
-          onChangeText={(text) => handleChange("room", text)}
-          style={styles.inputs}
-        />
+        <View style={styles.container}>
+          <TextInput
+            placeholder="Room"
+            onChangeText={(text) => handleChange("room", text)}
+            style={styles.input}
+          />
+        </View>
       </View>
       <Pressable style={styles.button} onPress={handleSubmit}>
         <Text>Create</Text>
@@ -136,7 +155,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     borderWidth: 1,
     borderRadius: 5,
-    padding: 15,
     borderColor: "black",
     borderWidth: 2,
   },
@@ -150,7 +168,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   container: {
-    marginTop: 20,
     width: "100%",
     flexDirection: "row",
     gap: 15,
@@ -175,6 +192,8 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 5,
     width: "50%",
+    alignSelf: "center",
+    alignItems: "center",
     marginLeft: 15,
     fontWeight: "bold",
   },

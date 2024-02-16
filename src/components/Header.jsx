@@ -21,10 +21,16 @@ function Header() {
         <MaterialCommunityIcons name="plus-circle" size={40} color="black" />
       </Pressable>
       <Pressable
+        onPress={() => navigation.navigate("Professors")}
+        style={styles.buttonContainer}
+      >
+        <MaterialCommunityIcons name="badge-account" size={40} color="black" />
+      </Pressable>
+      <Pressable
         onPress={() => navigation.navigate("ScheduleForm")}
         style={styles.buttonContainer}
       >
-        <MaterialCommunityIcons name="pencil" size={40} color="black" />
+        <MaterialCommunityIcons name="book-plus" size={40} color="black" />
       </Pressable>
     </View>
   );
