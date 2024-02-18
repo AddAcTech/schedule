@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Teacher from "./Teacher";
@@ -35,7 +35,7 @@ export default function AllTeachers() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {teachers &&
         teachers.map((teacher, index) => (
           <Teacher
@@ -44,14 +44,13 @@ export default function AllTeachers() {
             onDelete={() => handleDelete(teacher)}
           />
         ))}
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
-    gap: 15,
     width: "100%",
   },
 });

@@ -19,6 +19,7 @@ export default function Teacher({ teacher, onDelete }) {
 const styles = StyleSheet.create({
   container: {
     padding: 15,
+    marginBottom: 15,
     justifyContent: "space-between",
     flexDirection: "row",
     gap: 15,

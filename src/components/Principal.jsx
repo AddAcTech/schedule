@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Subject from "./Subject";
 import Header from "./Header";
 import EmptySchedule from "./EmptySchedule";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
@@ -94,7 +94,7 @@ function Principal() {
           <Picker.Item label="Sunday" value="Sunday" />
         </Picker>
       </View>
-      <View style={styles.subjects}>
+      <ScrollView style={styles.subjects}>
         {today.map((subject, index) => (
           <Subject
             key={index}
@@ -102,7 +102,7 @@ function Principal() {
             onDelete={() => handleDelete(subject)}
           />
         ))}
-      </View>
+      </ScrollView>
     </View>
   );
 }
