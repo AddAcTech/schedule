@@ -1,17 +1,14 @@
-import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React from "react";
 
-function Subject({ subject, onDelete }) {
+export default function Teacher({ teacher, onDelete }) {
   return (
     <View style={styles.container}>
-      <View style={styles.subjectContainer}>
-        <Text style={styles.title}>{subject.subject}</Text>
-        <Text>Instructor: {subject.teacher}</Text>
-        <Text>
-          Time: {subject.start} - {subject.finish}
-        </Text>
-        <Text>Location: {subject.room}</Text>
+      <View>
+        <Text style={styles.title}>{teacher.name}</Text>
+        <Text>Contact: {teacher.contact}</Text>
+        <Text>Office: {teacher.office}</Text>
       </View>
       <Pressable style={styles.button} onPress={onDelete}>
         <MaterialCommunityIcons name="delete" size={30} color="black" />
@@ -19,18 +16,16 @@ function Subject({ subject, onDelete }) {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    padding: 15,
+    marginBottom: 15,
     justifyContent: "space-between",
-    padding: 16,
-    borderColor: "gray",
-    borderWidth: 1,
+    flexDirection: "row",
+    gap: 15,
     borderRadius: 10,
-  },
-  subjectContainer: {
-    flexDirection: "column",
+    borderWidth: 2,
+    borderColor: "black",
   },
   title: {
     fontSize: 20,
@@ -39,8 +34,5 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: 10,
   },
 });
-
-export default Subject;

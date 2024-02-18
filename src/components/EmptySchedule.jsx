@@ -11,8 +11,8 @@ function EmptySchedule() {
         <Text style={styles.title}>No schedule yet</Text>
         <MaterialCommunityIcons
           name="emoticon-sad-outline"
-          size={100}
-          color="black"
+          size={80}
+          color="grey"
         />
       </View>
     </View>
@@ -29,9 +29,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
-    marginBottom: 20,
+    color: "grey",
   },
 });
 

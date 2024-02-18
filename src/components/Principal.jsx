@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Subject from "./Subject";
 import Header from "./Header";
 import EmptySchedule from "./EmptySchedule";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
@@ -34,7 +34,7 @@ function Principal() {
       const getData = async () => {
         try {
           const jsonValue = await AsyncStorage.getItem("@schedule");
-          return jsonValue != null ? JSON.parse(jsonValue) : null;
+          return jsonValue != null ? JSON.parse(jsonValue) : [];
         } catch (e) {
           // Error reading value
         }
@@ -94,7 +94,7 @@ function Principal() {
           <Picker.Item label="Sunday" value="Sunday" />
         </Picker>
       </View>
-      <View style={styles.subjects}>
+      <ScrollView style={styles.subjects}>
         {today.map((subject, index) => (
           <Subject
             key={index}
@@ -102,7 +102,7 @@ function Principal() {
             onDelete={() => handleDelete(subject)}
           />
         ))}
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -112,7 +112,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   subjects: {
-    alignItems: "center",
+    width: "100%",
+    paddingHorizontal: 15,
+    gap: 15,
   },
   scheduleContainer: {
     flex: 1,
@@ -123,7 +125,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    margin: 20,
   },
   title: {
     fontSize: 30,
