@@ -94,7 +94,7 @@ function Principal() {
           <Picker.Item label="Sunday" value="Sunday" />
         </Picker>
       </View>
-      <ScrollView style={styles.subjects}>
+      <ScrollView style={styles.subjects} showsVerticalScrollIndicator={false}>
         {today.map((subject, index) => (
           <Subject
             key={index}
