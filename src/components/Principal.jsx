@@ -69,8 +69,8 @@ function Principal() {
     storeData(updatedSubjects);
   };
 
-  const handleChange = (e) => {
-    setDia(e.target.value);
+  const handleChange = (value) => {
+    setDia(value);
   };
 
   if (today.length === 0 || !today) {
@@ -83,7 +83,10 @@ function Principal() {
       <View style={styles.titleContainer}>
         <MaterialCommunityIcons name="calendar-clock" size={30} color="black" />
         <Text style={styles.title}>{dia} schedule</Text>
-        <Picker onValueChange={handleChange} style={styles.inputs}>
+        <Picker
+          onValueChange={(inputValue) => handleChange(inputValue)}
+          style={styles.inputs}
+        >
           <Picker.Item label="Select Day" value="" />
           <Picker.Item label="Monday" value="Monday" />
           <Picker.Item label="Tuesday" value="Tuesday" />
@@ -130,6 +133,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     marginLeft: 10,
+  },
+  inputs: {
+    height: 50,
+    width: 150,
   },
 });
 
