@@ -1,12 +1,10 @@
 import React from "react";
-import Header from "./Header";
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function EmptySchedule() {
   return (
     <View style={styles.container}>
-      <Header />
       <View style={styles.emptyContainer}>
         <Text style={styles.title}>No schedule yet</Text>
         <MaterialCommunityIcons

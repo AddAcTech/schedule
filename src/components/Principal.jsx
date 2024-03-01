@@ -4,16 +4,15 @@ import Subject from "./Subject";
 import Header from "./Header";
 import EmptySchedule from "./EmptySchedule";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
+import ScheduleFilter from "./ScheduleFilter";
 
 function Principal() {
   const [subjects, setSubjects] = useState([]);
   const [today, setToday] = useState([]);
   const [fecha, setFecha] = useState(new Date());
   const [dia, setDia] = useState("");
-  const navigation = useNavigation();
 
   const [dias, setDias] = useState([
     "Monday",
@@ -74,29 +73,25 @@ function Principal() {
   };
 
   if (today.length === 0 || !today) {
-    return <EmptySchedule />;
+    return (
+      <>
+        <Header />
+        <ScheduleFilter
+          dia={dia}
+          handleChange={(inputValue) => handleChange(inputValue)}
+        />
+        <EmptySchedule />
+      </>
+    );
   }
 
   return (
     <View style={styles.container}>
       <Header />
-      <View style={styles.titleContainer}>
-        <MaterialCommunityIcons name="calendar-clock" size={30} color="black" />
-        <Text style={styles.title}>{dia} schedule</Text>
-        <Picker
-          onValueChange={(inputValue) => handleChange(inputValue)}
-          style={styles.inputs}
-        >
-          <Picker.Item label="Select Day" value="" />
-          <Picker.Item label="Monday" value="Monday" />
-          <Picker.Item label="Tuesday" value="Tuesday" />
-          <Picker.Item label="Wednesday" value="Wednesday" />
-          <Picker.Item label="Thursday" value="Thursday" />
-          <Picker.Item label="Friday" value="Friday" />
-          <Picker.Item label="Saturday" value="Saturday" />
-          <Picker.Item label="Sunday" value="Sunday" />
-        </Picker>
-      </View>
+      <ScheduleFilter
+        dia={dia}
+        handleChange={(inputValue) => handleChange(inputValue)}
+      />
       <ScrollView style={styles.subjects} showsVerticalScrollIndicator={false}>
         {today.map((subject, index) => (
           <Subject
@@ -123,20 +118,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: "bold",
-    marginLeft: 10,
-  },
-  inputs: {
-    height: 50,
-    width: 150,
   },
 });
 

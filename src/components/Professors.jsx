@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   input: {
     borderColor: "black",
     borderWidth: 2,
-    paddingLeft: 16,
+    padding: 15,
     borderRadius: 10,
     fontSize: 20,
   },
