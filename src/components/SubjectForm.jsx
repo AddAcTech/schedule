@@ -36,6 +36,7 @@ function SubjectForm() {
     try {
       const jsonValue = JSON.stringify([...subjects, subject]);
       await AsyncStorage.setItem("@subjects", jsonValue);
+      navigation.navigate("/");
     } catch (e) {
       // Saving error
     }

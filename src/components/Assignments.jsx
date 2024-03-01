@@ -60,8 +60,15 @@ function Assignments() {
         "@assignments",
         JSON.stringify([...prevAssignments, newAssignment])
       );
+      // Limpiar los campos después de enviar el formulario
+      setNewAssignment({
+        subject: "",
+        date: "",
+        description: "",
+        done: false,
+      });
     } catch (e) {
-      // Saving error
+      // Manejar error al guardar
     }
   };
 
@@ -115,6 +122,7 @@ function Assignments() {
               style={styles.selectors}
               placeholder="Date"
               onChangeText={(text) => handleChange("date", text)}
+              value={newAssignment.date} // Agregar este valor
             />
           </View>
         </View>
@@ -125,6 +133,7 @@ function Assignments() {
             placeholder="Assignment Description"
             onChangeText={(text) => handleChange("description", text)}
             style={styles.input}
+            value={newAssignment.description} // Agregar este valor
           />
         </View>
       </View>
