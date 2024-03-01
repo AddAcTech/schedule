@@ -65,6 +65,26 @@ function Assignments() {
     }
   };
 
+  const assignmentDone = (index) => {
+    const newAssignments = [...prevAssignments];
+    newAssignments[index].done = !newAssignments[index].done;
+    setPrevAssignments(newAssignments);
+    try {
+      AsyncStorage.setItem("@assignments", JSON.stringify(newAssignments));
+    } catch (e) {
+      // Saving error
+    }
+  };
+
+  const handleDelete = (index) => {
+    const newAssignments = prevAssignments.filter((_, i) => i !== index);
+    setPrevAssignments(newAssignments);
+    try {
+      AsyncStorage.setItem("@assignments", JSON.stringify(newAssignments));
+    } catch (e) {
+      // Saving error
+    }
+  };
   return (
     <>
       <Header />
@@ -116,7 +136,12 @@ function Assignments() {
         showsVerticalScrollIndicator={false}
       >
         {prevAssignments.map((assignment, index) => (
-          <Assignment key={index} assignment={assignment} />
+          <Assignment
+            key={index}
+            assignment={assignment}
+            onUpdate={() => assignmentDone(index)}
+            onDelete={() => handleDelete(index)}
+          />
         ))}
       </ScrollView>
     </>

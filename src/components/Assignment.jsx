@@ -1,21 +1,46 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import React from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function Assignment({ assignment, onDelete }) {
+export default function Assignment({ assignment, onUpdate, onDelete }) {
   return (
     <View style={styles.card}>
-      <Text style={styles.subject}>{assignment.subject}</Text>
-      <Text style={styles.date}>{assignment.date}</Text>
-      <Text>Description: {assignment.description}</Text>
-      <Text
-        style={
-          assignment.done
-            ? { color: "green", fontWeight: "bold" }
-            : { color: "red", fontWeight: "bold" }
-        }
-      >
-        {assignment.done ? "Done" : "Pending"}
-      </Text>
+      <View>
+        <Text style={styles.subject}>{assignment.subject}</Text>
+        <Text style={styles.date}>{assignment.date}</Text>
+        <Text>Description: {assignment.description}</Text>
+        <Text
+          style={
+            assignment.done
+              ? { color: "green", fontWeight: "bold" }
+              : { color: "red", fontWeight: "bold" }
+          }
+        >
+          {assignment.done ? "Done" : "Pending"}
+        </Text>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <Pressable
+          style={{ color: "red", fontWeight: "bold" }}
+          onPress={onDelete}
+        >
+          <MaterialCommunityIcons name="delete" size={30} color="black" />
+        </Pressable>
+        <Pressable
+          style={{ color: "red", fontWeight: "bold" }}
+          onPress={onUpdate}
+        >
+          <MaterialCommunityIcons
+            name={
+              assignment.done
+                ? "checkbox-marked-circle-outline"
+                : "checkbox-marked-circle"
+            }
+            size={30}
+            color="black"
+          />
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -29,6 +54,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginBottom: 15,
     gap: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   subject: {
     fontSize: 20,
@@ -36,5 +63,9 @@ const styles = StyleSheet.create({
   },
   date: {
     fontSize: 15,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
