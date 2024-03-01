@@ -39,7 +39,6 @@ function SubjectForm() {
     } catch (e) {
       // Saving error
     }
-    navigation.navigate("/");
   };
 
   return (

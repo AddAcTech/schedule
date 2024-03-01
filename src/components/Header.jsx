@@ -32,6 +32,16 @@ function Header() {
       >
         <MaterialCommunityIcons name="book-plus" size={40} color="black" />
       </Pressable>
+      <Pressable
+        onPress={() => navigation.navigate("Assignments")}
+        style={styles.buttonContainer}
+      >
+        <MaterialCommunityIcons
+          name="clipboard-text-multiple-outline"
+          size={40}
+          color="black"
+        />
+      </Pressable>
     </View>
   );
 }

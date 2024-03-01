@@ -27,9 +27,9 @@ function ScheduleForm() {
         const teachersJson = await AsyncStorage.getItem("@teachers");
 
         return {
-          subjects: subjectsJson != null ? JSON.parse(subjectsJson) : null,
-          schedule: scheduleJson != null ? JSON.parse(scheduleJson) : null,
-          teachers: teachersJson != null ? JSON.parse(teachersJson) : null,
+          schedule: scheduleJson != null ? JSON.parse(scheduleJson) : [],
+          subjects: subjectsJson != null ? JSON.parse(subjectsJson) : [],
+          teachers: teachersJson != null ? JSON.parse(teachersJson) : [],
         };
       } catch (e) {
         // Error reading value
