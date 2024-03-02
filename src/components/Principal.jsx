@@ -112,12 +112,6 @@ const styles = StyleSheet.create({
   subjects: {
     width: "100%",
     paddingHorizontal: 15,
-    gap: 15,
-  },
-  scheduleContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
 
