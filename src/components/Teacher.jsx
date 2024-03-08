@@ -11,7 +11,7 @@ export default function Teacher({ teacher, onDelete }) {
         <Text>Office: {teacher.office}</Text>
       </View>
       <Pressable style={styles.button} onPress={onDelete}>
-        <MaterialCommunityIcons name="delete" size={30} color="black" />
+        <MaterialCommunityIcons name="delete" size={30} color="red" />
       </Pressable>
     </View>
   );

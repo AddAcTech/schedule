@@ -14,7 +14,7 @@ function Subject({ subject, onDelete }) {
         <Text>Location: {subject.room}</Text>
       </View>
       <Pressable style={styles.button} onPress={onDelete}>
-        <MaterialCommunityIcons name="delete" size={30} color="black" />
+        <MaterialCommunityIcons name="delete" size={30} color="red" />
       </Pressable>
     </View>
   );

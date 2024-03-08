@@ -24,7 +24,7 @@ export default function Assignment({ assignment, onUpdate, onDelete }) {
           style={{ color: "red", fontWeight: "bold" }}
           onPress={onDelete}
         >
-          <MaterialCommunityIcons name="delete" size={30} color="black" />
+          <MaterialCommunityIcons name="delete" size={30} color="red" />
         </Pressable>
         <Pressable
           style={{ color: "red", fontWeight: "bold" }}
@@ -33,8 +33,8 @@ export default function Assignment({ assignment, onUpdate, onDelete }) {
           <MaterialCommunityIcons
             name={
               assignment.done
-                ? "checkbox-marked-circle-outline"
-                : "checkbox-marked-circle"
+                ? "checkbox-marked-circle"
+                : "checkbox-marked-circle-outline"
             }
             size={30}
             color="black"

@@ -37,7 +37,7 @@ export default function AllSubjects() {
             <MaterialCommunityIcons
               name="delete"
               size={30}
-              color="black"
+              color="red"
               onPress={() => handleDelete(subject)}
             />
           </View>
