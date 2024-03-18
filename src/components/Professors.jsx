@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Pressable,
+  Alert,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "./Header";
 import AllTeachers from "./AllTeachers";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 function Professors() {
   const navigation = useNavigation();
@@ -32,14 +38,16 @@ function Professors() {
   };
 
   const handleSubmit = async () => {
-    //setPrevTeachers([...prevTeachers, teacher]);
-    console.log(prevTeachers);
-    try {
-      const jsonValue = JSON.stringify([...prevTeachers, teacher]);
-      console.log(jsonValue);
-      await AsyncStorage.setItem("@teachers", jsonValue);
-      navigation.navigate("/");
-    } catch (e) {}
+    const { name, office, contact } = teacher;
+    if (name.trim() !== "" && office.trim() !== "" && contact.trim() !== "") {
+      try {
+        const jsonValue = JSON.stringify([...prevTeachers, teacher]);
+        await AsyncStorage.setItem("@teachers", jsonValue);
+        navigation.navigate("/");
+      } catch (e) {}
+    } else {
+      Alert.alert("Ups!", "Fields cannot be empty");
+    }
   };
 
   return (
@@ -104,7 +112,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     fontSize: 20,
   },
-
   button: {
     backgroundColor: "black",
     justifyContent: "center",

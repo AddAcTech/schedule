@@ -6,6 +6,7 @@ import {
   ScrollView,
   TextInput,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
@@ -54,21 +55,29 @@ function Assignments() {
   };
 
   const handleSubmit = async () => {
-    setPrevAssignments([...prevAssignments, newAssignment]);
-    try {
-      await AsyncStorage.setItem(
-        "@assignments",
-        JSON.stringify([...prevAssignments, newAssignment])
-      );
-      // Limpiar los campos después de enviar el formulario
-      setNewAssignment({
-        subject: "",
-        date: "",
-        description: "",
-        done: false,
-      });
-    } catch (e) {
-      // Manejar error al guardar
+    const { subject, date, description } = newAssignment;
+    if (
+      subject.trim() !== "" &&
+      date.trim() !== "" &&
+      description.trim() !== ""
+    ) {
+      try {
+        await AsyncStorage.setItem(
+          "@assignments",
+          JSON.stringify([...prevAssignments, newAssignment])
+        );
+        // Limpiar los campos después de enviar el formulario
+        setNewAssignment({
+          subject: "",
+          date: "",
+          description: "",
+          done: false,
+        });
+      } catch (e) {
+        // Manejar error al guardar
+      }
+    } else {
+      Alert.alert("Ups!", "Fields cannot be empty");
     }
   };
 
@@ -92,6 +101,7 @@ function Assignments() {
       // Saving error
     }
   };
+
   return (
     <>
       <Header />
@@ -205,7 +215,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     alignItems: "center",
   },
-
   buttonText: {
     color: "white",
     fontWeight: "bold",

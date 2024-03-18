@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Pressable,
+  Alert,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "./Header";
 import AllSubjects from "./AllSubjects";
@@ -9,10 +16,6 @@ function SubjectForm() {
   const navigation = useNavigation();
   const [subject, setSubject] = useState("");
   const [subjects, setSubjects] = useState([]);
-
-  const handleSubjectChange = (value) => {
-    setSubject(value);
-  };
 
   useEffect(() => {
     const getData = async () => {
@@ -32,13 +35,17 @@ function SubjectForm() {
   }, []);
 
   const handleSubmit = async () => {
-    setSubjects([...subjects, subject]);
-    try {
-      const jsonValue = JSON.stringify([...subjects, subject]);
-      await AsyncStorage.setItem("@subjects", jsonValue);
-      navigation.navigate("/");
-    } catch (e) {
-      // Saving error
+    if (subject.trim() !== "") {
+      setSubjects([...subjects, subject]);
+      try {
+        const jsonValue = JSON.stringify([...subjects, subject]);
+        await AsyncStorage.setItem("@subjects", jsonValue);
+        navigation.navigate("/");
+      } catch (e) {
+        // Error al guardar
+      }
+    } else {
+      Alert.alert("Ups!", "Subject cannot be empty");
     }
   };
 
@@ -50,7 +57,7 @@ function SubjectForm() {
         <TextInput
           style={styles.input}
           placeholder="Algorithms"
-          onChangeText={handleSubjectChange}
+          onChangeText={setSubject}
         />
         <Pressable style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}>Add Subject</Text>

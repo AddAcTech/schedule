@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Pressable, Text, View, TextInput, StyleSheet } from "react-native";
+import {
+  Pressable,
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -54,16 +61,27 @@ function ScheduleForm() {
   };
 
   const handleSubmit = async () => {
-    setPrevSchedule([...prevSchedule, schedule]);
-    try {
-      await AsyncStorage.setItem(
-        "@schedule",
-        JSON.stringify([...prevSchedule, schedule])
-      );
-    } catch (e) {
-      // Saving error
+    const { day, subject, teacher, start, finish, room } = schedule;
+    if (
+      day.trim() !== "" &&
+      subject.trim() !== "" &&
+      teacher.trim() !== "" &&
+      start.trim() !== "" &&
+      finish.trim() !== "" &&
+      room.trim() !== ""
+    ) {
+      try {
+        await AsyncStorage.setItem(
+          "@schedule",
+          JSON.stringify([...prevSchedule, schedule])
+        );
+        navigation.navigate("/");
+      } catch (e) {
+        // Saving error
+      }
+    } else {
+      Alert.alert("Ups!", "Fields cannot be empty");
     }
-    navigation.navigate("/");
   };
 
   return (
@@ -195,7 +213,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
   },
-
   buttonText: {
     color: "white",
     fontWeight: "bold",
