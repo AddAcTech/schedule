@@ -66,6 +66,7 @@ function Assignments() {
           "@assignments",
           JSON.stringify([...prevAssignments, newAssignment])
         );
+        setPrevAssignments([...prevAssignments, newAssignment]);
         // Limpiar los campos después de enviar el formulario
         setNewAssignment({
           subject: "",
